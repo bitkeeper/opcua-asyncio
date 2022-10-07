@@ -149,8 +149,9 @@ class Null:  # Null(NoneType) is not supported in Python
     pass
 
 
-class String:  # Passing None as arg will result in unexpected behaviour so disabling
-    pass
+class String(str):
+    def __new__(cls, content = ''):
+        return super().__new__(cls, content)
 
 
 class CharArray(str):
