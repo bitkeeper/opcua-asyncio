@@ -150,8 +150,8 @@ def get_default_value(uatype, enums=None, hack=False, optional= False):
         return b''
     if uatype == "Boolean":
         return "True"
-    if uatype == "DateTime # type: ignore":
-        return "datetime.utcnow()"
+    if uatype == "DateTime":
+        return "datetime.utcnow() # type: ignore"
     if uatype in ("Int16", "Int32", "Int64", "UInt16", "UInt32", "UInt64", "Double", "Float", "Byte", "SByte"):
         return f"ua.{uatype}(0)"
     if uatype in enums:
