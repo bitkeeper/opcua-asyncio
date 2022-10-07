@@ -1146,7 +1146,7 @@ async def test_import_xml_data_type_definition(opc):
     s = ua.MyStruct()
     s.toto = 0.1
     ss = ua.MySubstruct()
-    assert ss.titi == 0
+    assert ss.titi == None
     assert isinstance(ss.structs, list)
 
     ss.titi = 1
