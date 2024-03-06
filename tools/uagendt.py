@@ -25,7 +25,7 @@ Used nodeset file: {nodeset_file}
 File creation Date: {datetime_stamp}
 \"\"\"
 
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name,too-many-instance-attributes,too-few-public-methods
 
 from typing import List, Optional, Dict
 from dataclasses import dataclass, field
@@ -87,9 +87,9 @@ async def generate_object_code(name: str, sdef: Union[ua.EnumDefinition, ua.Stru
     return the code
     """
     if enum:
-        code = make_enum_code(name, sdef, option_set)
+        code = make_enum_code(name, sdef, option_set).replace('typing.', '')
     else:
-        code = make_structure_code(data_type, name, sdef, log_error=log_fail)
+        code = make_structure_code(data_type, name, sdef, log_error=log_fail).replace('typing.', '')
     return code
 
 
@@ -306,7 +306,7 @@ async def main():
     await server.init()
     server.set_endpoint('opc.tcp://127.0.0.1:14841/freeopcua/server/')
 
-    nodes = await server.import_xml(nodeset_file, strict_mode=False)
+    nodes = await server.import_xml(nodeset_file, strict_mode=False, auto_load_definitions=False)
     print("\n")
 
     code: str = FILE_HEADER_TEMPLATE.format(nodeset_file=nodeset_file.name, datetime_stamp=datetime.now(), code=await generate_data_type_code(server, nodes))
