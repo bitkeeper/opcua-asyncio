@@ -1361,6 +1361,12 @@ async def test_import_xml_data_type_definition(opc):
     [n.append(opc.opc.get_node(node)) for node in nodes]
     await opc.opc.delete_nodes(n)
 
+async def test_import_xml_data_no_auto_load_type_definition(opc):
+    nodes = await opc.opc.import_xml("tests/substructs.xml", auto_load_definitions = False)
+    assert hasattr(ua, "MySubstruct") is False
+    assert hasattr(ua, "MyStruct") is False
+    assert hasattr(ua, "MyEnum") is False
+
 
 async def test_struct_data_type(opc):
     assert isinstance(ua.AddNodesItem.data_type, ua.NodeId)
