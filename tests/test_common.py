@@ -1328,7 +1328,6 @@ async def test_guid_node_id():
 
 async def test_import_xml_data_type_definition(opc):
     nodes = await opc.opc.import_xml("tests/substructs.xml")
-    await opc.opc.load_data_type_definitions()
     assert hasattr(ua, "MySubstruct")
     assert hasattr(ua, "MyStruct")
 
@@ -1373,7 +1372,6 @@ async def test_struct_data_type(opc):
 
 async def test_import_xml_enum_data_type_definition(opc):
     nodes = await opc.opc.import_xml("tests/testenum104.xml")
-    await opc.opc.load_data_type_definitions()
     assert hasattr(ua, "MyEnum")
     e = ua.MyEnum.val2
     var = await opc.opc.nodes.objects.add_variable(
